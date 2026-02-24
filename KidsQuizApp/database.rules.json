@@ -1,0 +1,18 @@
+{
+  "rules": {
+    "leaderboard": {
+      ".read": "auth != null",
+      "$uid": {
+        ".write": "auth != null && auth.uid === $uid",
+        ".validate": "newData.hasChildren(['uid', 'displayName', 'totalPoints', 'totalStars', 'updatedAt'])",
+        "uid": { ".validate": "newData.isString() && newData.val() === $uid" },
+        "displayName": { ".validate": "newData.isString() && newData.val().length <= 50" },
+        "totalPoints": { ".validate": "newData.isNumber() && newData.val() >= 0" },
+        "totalStars": { ".validate": "newData.isNumber() && newData.val() >= 0" },
+        "updatedAt": { ".validate": "newData.isNumber()" },
+        "$other": { ".validate": false }
+      }
+    },
+    "$other": { ".read": false, ".write": false }
+  }
+}
