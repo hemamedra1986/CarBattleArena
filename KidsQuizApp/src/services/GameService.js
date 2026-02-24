@@ -119,7 +119,7 @@ const GameService = {
       };
 
       const totalStars = Object.values(updatedStageResults).reduce((sum, r) => sum + r.stars, 0);
-      const highestStage = Math.max(existing.highestStage || 1, stage + 1, stage);
+      const highestStage = Math.max(existing.highestStage || 1, stage + 1);
 
       transaction.set(
         progressRef,

@@ -99,14 +99,13 @@ export const GameProvider = ({ children }) => {
       // Reload to get the merged server state
       await loadUserProgress(user.uid);
 
-      // Update leaderboard
-      const newTotal = (progress.totalPoints || 0) + pointsEarned;
-      const newStars = (progress.totalStars || 0) + stars;
+      // Update leaderboard using freshly-fetched progress from Firestore
+      const freshProgress = await GameService.loadProgress(user.uid);
       await GameService.updateLeaderboard(
         user.uid,
         user.displayName || 'لاعب',
-        newTotal,
-        newStars,
+        freshProgress.totalPoints || 0,
+        freshProgress.totalStars || 0,
       );
     },
     [user, progress],

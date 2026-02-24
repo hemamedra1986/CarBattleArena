@@ -66,7 +66,7 @@ const SoundService = {
 
   playBackgroundMusic: () => {
     if (isMuted || !isMusicEnabled) return;
-    if (backgroundMusic && backgroundMusic.isPlaying && backgroundMusic.isPlaying()) return;
+    if (backgroundMusic?.isPlaying?.()) return;
 
     const filename = GAME_CONFIG.SOUNDS.BACKGROUND_MUSIC;
     const music = new Sound(filename, Sound.MAIN_BUNDLE, (error) => {

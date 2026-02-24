@@ -463,13 +463,45 @@ export const generateAllQuestions = () => {
 
 /**
  * Return only the questions for a specific stage.
+ * For stages > 3, generates only that stage's questions rather than all 1000.
  */
 export const getQuestionsForStage = (stage) => {
-  if (stage <= 3) {
-    const byStage = { 1: stage1Questions, 2: stage2Questions, 3: stage3Questions };
-    return byStage[stage] || [];
+  if (stage === 1) return stage1Questions;
+  if (stage === 2) return stage2Questions;
+  if (stage === 3) return stage3Questions;
+
+  // Generate only the requested stage
+  let difficulty;
+  let points;
+  if (stage <= 10) {
+    difficulty = 'easy'; points = 10;
+  } else if (stage <= 30) {
+    difficulty = 'medium'; points = 20;
+  } else {
+    difficulty = 'hard'; points = 30;
   }
-  return generateAllQuestions().filter(q => q.stage === stage);
+
+  const pool = generatedQuestionsPool;
+  const poolLen = pool.length;
+  // Offset matches the generateAllQuestions() formula so IDs stay consistent
+  const baseId = 61 + (stage - 4) * 20;
+  const result = [];
+
+  for (let q = 0; q < 20; q++) {
+    const poolItem = pool[((baseId - 61) + q * 3) % poolLen];
+    result.push({
+      id: baseId + q,
+      stage,
+      difficulty,
+      category: poolItem.category,
+      points,
+      question: `[مرحلة ${stage}] ${poolItem.question}`,
+      options: poolItem.options,
+      correctAnswer: poolItem.correctAnswer,
+    });
+  }
+
+  return result;
 };
 
 const questions = [...stage1Questions, ...stage2Questions, ...stage3Questions];

@@ -119,7 +119,6 @@ const GameScreen = ({ route, navigation }) => {
     const nextIndex = currentIndex + 1;
     if (nextIndex >= totalQuestions) {
       // Game over
-      const finalCorrect = correctCount + (selectedIndex === currentQuestion?.correctAnswer ? 0 : 0);
       const stars = calculateStars(correctCount, totalQuestions);
       SoundService.playLevelCompleteSound();
 
