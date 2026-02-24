@@ -17,4 +17,12 @@ const firebaseConfig = {
   appId: 'YOUR_APP_ID',
 };
 
+// Guard against accidental deployment with placeholder credentials.
+if (Object.values(firebaseConfig).some((v) => v.startsWith('YOUR_'))) {
+  console.warn(
+    '[KidsQuizApp] Firebase config contains placeholder values. ' +
+    'Replace them in src/config/firebase.js with your real project credentials before running the app.',
+  );
+}
+
 export default firebaseConfig;

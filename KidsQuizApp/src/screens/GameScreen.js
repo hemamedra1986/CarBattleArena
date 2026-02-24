@@ -143,7 +143,7 @@ const GameScreen = ({ route, navigation }) => {
       setAnswered(false);
       questionRef.current?.fadeIn(300);
     }
-  }, [correctCount, currentIndex, currentQuestion, navigation, completeStage, pointsEarned, selectedIndex, stage, totalQuestions]);
+  }, [correctCount, currentIndex, navigation, completeStage, pointsEarned, stage, totalQuestions]);
 
   // ── Answer button states ──────────────────────────────────────────────────
   const getAnswerState = (index) => {
